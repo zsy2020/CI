@@ -12,9 +12,9 @@
     <!-- 本地存放脚本的路径-->
     <property name="scriptdirectory" value="..\script\" />   
     <!-- jmeter生成jtl格式的结果报告的路径--> 
-    <property name="jmeter.result.jtl.dir" value="E:\jmeter\report" />
+    <property name="jmeter.result.jtl.dir" value="E:\jmeter\report\latest" />
     <!-- jmeter生成html格式的结果报告的路径-->
-    <property name="jmeter.result.html.dir" value="E:\jmeter\report" />
+    <property name="jmeter.result.html.dir" value="E:\jmeter\report\latest" />
     <!-- 生成的报告的前缀-->  
     <property name="ReportName" value="qupao" />
     <property name="jmeter.result.jtlName" value="${jmeter.result.jtl.dir}/${ReportName}.jtl" />
