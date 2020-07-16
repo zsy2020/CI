@@ -10,7 +10,7 @@
      <!-- 本地存放报告的路径-->
     <property name="basedirectory" value="E:\jmeter\report" />
     <!-- 本地存放脚本的路径-->
-    <property name="scriptdirectory" value=".\script\" />   
+    <property name="scriptdirectory" value="..\script\" />   
     <!-- jmeter生成jtl格式的结果报告的路径--> 
     <property name="jmeter.result.jtl.dir" value="E:\jmeter\report" />
     <!-- jmeter生成html格式的结果报告的路径-->
