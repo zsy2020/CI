@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.2.1">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">true</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="scheme" elementType="Argument">
+            <stringProp name="Argument.name">scheme</stringProp>
+            <stringProp name="Argument.value">http</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="url" elementType="Argument">
+            <stringProp name="Argument.name">url</stringProp>
+            <stringProp name="Argument.value">172.20.3.17</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="port" elementType="Argument">
+            <stringProp name="Argument.name">port</stringProp>
+            <stringProp name="Argument.value">8290</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+          <collectionProp name="Arguments.arguments"/>
+        </elementProp>
+        <stringProp name="HTTPSampler.domain">${url}</stringProp>
+        <stringProp name="HTTPSampler.port">${port}</stringProp>
+        <stringProp name="HTTPSampler.protocol">${scheme}</stringProp>
+        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+        <stringProp name="HTTPSampler.path"></stringProp>
+        <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+        <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+        <stringProp name="HTTPSampler.response_timeout"></stringProp>
+      </ConfigTestElement>
+      <hashTree/>
+      <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
+        <collectionProp name="CookieManager.cookies"/>
+        <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+        <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
+      </CookieManager>
+      <hashTree/>
+      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+        <collectionProp name="HeaderManager.headers">
+          <elementProp name="Authorization" elementType="Header">
+            <stringProp name="Header.name">Authorization</stringProp>
+            <stringProp name="Header.value">Bearer ${__P(OVR_token,error)}</stringProp>
+          </elementProp>
+          <elementProp name="Content-Type" elementType="Header">
+            <stringProp name="Header.name">Content-Type</stringProp>
+            <stringProp name="Header.value">application/x-www-form-urlencoded</stringProp>
+          </elementProp>
+        </collectionProp>
+      </HeaderManager>
+      <hashTree/>
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="setUpGroup" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </SetupThreadGroup>
+      <hashTree>
+        <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="JSON断言" enabled="true">
+          <stringProp name="JSON_PATH">code</stringProp>
+          <stringProp name="EXPECTED_VALUE">200</stringProp>
+          <boolProp name="JSONVALIDATION">true</boolProp>
+          <boolProp name="EXPECT_NULL">false</boolProp>
+          <boolProp name="INVERT">false</boolProp>
+          <boolProp name="ISREGEX">true</boolProp>
+        </JSONPathAssertion>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="登录" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+ &quot;username&quot;:&quot;zsy001&quot;,&#xd;
+ &quot;password&quot;:&quot;f379eaf3c831b04de153469d1bec345e&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+          <stringProp name="HTTPSampler.path">/dc/auth/login</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="Content-Type" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json;charset=UTF-8</stringProp>
+              </elementProp>
+              <elementProp name="Cache-Control" elementType="Header">
+                <stringProp name="Header.name">Cache-Control</stringProp>
+                <stringProp name="Header.value">no-cache</stringProp>
+              </elementProp>
+              <elementProp name="Accept-Encoding" elementType="Header">
+                <stringProp name="Header.name">Accept-Encoding</stringProp>
+                <stringProp name="Header.value">gzip, deflate, br</stringProp>
+              </elementProp>
+              <elementProp name="User-Agent" elementType="Header">
+                <stringProp name="Header.name">User-Agent</stringProp>
+                <stringProp name="Header.value">PostmanRuntime/7.24.1</stringProp>
+              </elementProp>
+              <elementProp name="Accept" elementType="Header">
+                <stringProp name="Header.name">Accept</stringProp>
+                <stringProp name="Header.value">*/*</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">token</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">data.token</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">error</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="重置token" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+          <stringProp name="HTTPSampler.path">/dc/biz/bizVenueMsg/ODFClient/genToken</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="Authorization" elementType="Header">
+                <stringProp name="Header.name">Authorization</stringProp>
+                <stringProp name="Header.value">Bearer ${token}</stringProp>
+              </elementProp>
+              <elementProp name="Postman-Token" elementType="Header">
+                <stringProp name="Header.name">Postman-Token</stringProp>
+                <stringProp name="Header.value">4c7f7549-0de0-4a91-b5d6-f464d51f53c6</stringProp>
+              </elementProp>
+              <elementProp name="Content-Type" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json;charset=UTF-8</stringProp>
+              </elementProp>
+              <elementProp name="Cache-Control" elementType="Header">
+                <stringProp name="Header.name">Cache-Control</stringProp>
+                <stringProp name="Header.value">no-cache</stringProp>
+              </elementProp>
+              <elementProp name="Accept-Encoding" elementType="Header">
+                <stringProp name="Header.name">Accept-Encoding</stringProp>
+                <stringProp name="Header.value">gzip, deflate, br</stringProp>
+              </elementProp>
+              <elementProp name="User-Agent" elementType="Header">
+                <stringProp name="Header.name">User-Agent</stringProp>
+                <stringProp name="Header.value">PostmanRuntime/7.24.1</stringProp>
+              </elementProp>
+              <elementProp name="Accept" elementType="Header">
+                <stringProp name="Header.name">Accept</stringProp>
+                <stringProp name="Header.value">*/*</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON提取器" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">data</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.data</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">non</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+          <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="OVR_token设置全局" enabled="true">
+            <boolProp name="resetInterpreter">false</boolProp>
+            <stringProp name="parameters">data</stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="script">${__setProperty(OVR_token,${data},)}</stringProp>
+          </BeanShellPostProcessor>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="ODFGroup" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <longProp name="ThreadGroup.start_time">1370726934000</longProp>
+        <longProp name="ThreadGroup.end_time">1370726934000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="code断言" enabled="true">
+          <stringProp name="JSON_PATH">code</stringProp>
+          <stringProp name="EXPECTED_VALUE">200</stringProp>
+          <boolProp name="JSONVALIDATION">true</boolProp>
+          <boolProp name="EXPECT_NULL">false</boolProp>
+          <boolProp name="INVERT">false</boolProp>
+          <boolProp name="ISREGEX">true</boolProp>
+        </JSONPathAssertion>
+        <hashTree/>
+        <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="message断言" enabled="true">
+          <stringProp name="JSON_PATH">message</stringProp>
+          <stringProp name="EXPECTED_VALUE">OK</stringProp>
+          <boolProp name="JSONVALIDATION">true</boolProp>
+          <boolProp name="EXPECT_NULL">false</boolProp>
+          <boolProp name="INVERT">false</boolProp>
+          <boolProp name="ISREGEX">true</boolProp>
+        </JSONPathAssertion>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PARTIC" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="msg" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                <stringProp name="Argument.name">msg</stringProp>
+                <stringProp name="Argument.value"> &lt;!--参赛者个人信息--&gt; &lt;OdfBody CompetitionCode=&quot;JINJIANG2020&quot;          DocumentCode=&quot;SWM-------------------------------&quot;          DocumentType=&quot;DT_PARTIC_UPDATE&quot;          Version=&quot;1&quot;          FeedFlag=&quot;P&quot;          Date=&quot;2020-05-07&quot;          Time=&quot;104823001&quot;          LogicalDate=&quot;2020-05-07&quot;          Source=&quot;SWM_OVR&quot;&gt;   &lt;Competition&gt;     &lt;!--个人信息--&gt;  &lt;Participant Code=&quot;CHNAA0101&quot; Status=&quot;ACTIVE&quot; GivenName=&quot;CHNAA0101&quot; FamilyName=&quot;SWM&quot; Gender=&quot;W&quot;      Organisation=&quot;CHN&quot; BirthDate=&quot;1993-09-20&quot; Height=&quot;173&quot; Weight=&quot;63&quot;                  MainFunctionId=&quot;AA01&quot; ModificationIndicator=&quot;N&quot;&gt;       &lt;Discipline Code=&quot;SWM-------------------------------&quot;&gt;         &lt;!--报项--&gt;         &lt;RegisteredEvent Event=&quot;SWMW100MBR------------------------&quot;&gt;         &lt;/RegisteredEvent&gt;       &lt;/Discipline&gt;     &lt;/Participant&gt; &lt;Participant Code=&quot;CHNAA0102&quot; Status=&quot;ACTIVE&quot; GivenName=&quot;CHNAA0102&quot; FamilyName=&quot;SWM&quot; Gender=&quot;W&quot;      Organisation=&quot;CHN&quot; BirthDate=&quot;1993-09-20&quot; Height=&quot;173&quot; Weight=&quot;63&quot;                  MainFunctionId=&quot;AA01&quot; ModificationIndicator=&quot;N&quot;&gt;       &lt;Discipline Code=&quot;SWM-------------------------------&quot;&gt;         &lt;!--报项--&gt;         &lt;RegisteredEvent Event=&quot;SWMW100MBR------------------------&quot;&gt;         &lt;/RegisteredEvent&gt;       &lt;/Discipline&gt;     &lt;/Participant&gt; &lt;Participant Code=&quot;CHNAA0103&quot; Status=&quot;ACTIVE&quot; GivenName=&quot;CHNAA0103&quot; FamilyName=&quot;SWM&quot; Gender=&quot;W&quot;      Organisation=&quot;CHN&quot; BirthDate=&quot;1993-09-20&quot; Height=&quot;173&quot; Weight=&quot;63&quot;                  MainFunctionId=&quot;AA01&quot; ModificationIndicator=&quot;N&quot;&gt;       &lt;Discipline Code=&quot;SWM-------------------------------&quot;&gt;         &lt;!--报项--&gt;         &lt;RegisteredEvent Event=&quot;SWMW100MBR------------------------&quot;&gt;         &lt;/RegisteredEvent&gt;       &lt;/Discipline&gt;     &lt;/Participant&gt; &lt;Participant Code=&quot;CHNAA0104&quot; Status=&quot;ACTIVE&quot; GivenName=&quot;CHNAA0104&quot; FamilyName=&quot;SWM&quot; Gender=&quot;W&quot;      Organisation=&quot;CHN&quot; BirthDate=&quot;1993-09-20&quot; Height=&quot;173&quot; Weight=&quot;63&quot;                  MainFunctionId=&quot;AA01&quot; ModificationIndicator=&quot;N&quot;&gt;       &lt;Discipline Code=&quot;SWM-------------------------------&quot;&gt;         &lt;!--报项--&gt;         &lt;RegisteredEvent Event=&quot;SWMW100MBR------------------------&quot;&gt;         &lt;/RegisteredEvent&gt;       &lt;/Discipline&gt;     &lt;/Participant&gt; 	 	&lt;!--个人信息--&gt;  &lt;Participant Code=&quot;USAAA0101&quot; Status=&quot;ACTIVE&quot; GivenName=&quot;USAAA0101&quot; FamilyName=&quot;SWM&quot; Gender=&quot;W&quot;      Organisation=&quot;USA&quot; BirthDate=&quot;1993-09-20&quot; Height=&quot;173&quot; Weight=&quot;63&quot;                  MainFunctionId=&quot;AA01&quot; ModificationIndicator=&quot;N&quot;&gt;       &lt;Discipline Code=&quot;SWM-------------------------------&quot;&gt;         &lt;!--报项--&gt;         &lt;RegisteredEvent Event=&quot;SWMW100MBR------------------------&quot;&gt;         &lt;/RegisteredEvent&gt;       &lt;/Discipline&gt;     &lt;/Participant&gt; &lt;Participant Code=&quot;USAAA0102&quot; Status=&quot;ACTIVE&quot; GivenName=&quot;USAAA0102&quot; FamilyName=&quot;SWM&quot; Gender=&quot;W&quot;      Organisation=&quot;USA&quot; BirthDate=&quot;1993-09-20&quot; Height=&quot;173&quot; Weight=&quot;63&quot;                  MainFunctionId=&quot;AA01&quot; ModificationIndicator=&quot;N&quot;&gt;       &lt;Discipline Code=&quot;SWM-------------------------------&quot;&gt;         &lt;!--报项--&gt;         &lt;RegisteredEvent Event=&quot;SWMW100MBR------------------------&quot;&gt;         &lt;/RegisteredEvent&gt;       &lt;/Discipline&gt;     &lt;/Participant&gt; &lt;Participant Code=&quot;USAAA0103&quot; Status=&quot;ACTIVE&quot; GivenName=&quot;USAAA0103&quot; FamilyName=&quot;SWM&quot; Gender=&quot;W&quot;      Organisation=&quot;USA&quot; BirthDate=&quot;1993-09-20&quot; Height=&quot;173&quot; Weight=&quot;63&quot;                  MainFunctionId=&quot;AA01&quot; ModificationIndicator=&quot;N&quot;&gt;       &lt;Discipline Code=&quot;SWM-------------------------------&quot;&gt;         &lt;!--报项--&gt;         &lt;RegisteredEvent Event=&quot;SWMW100MBR------------------------&quot;&gt;         &lt;/RegisteredEvent&gt;       &lt;/Discipline&gt;     &lt;/Participant&gt; &lt;Participant Code=&quot;USAAA0104&quot; Status=&quot;ACTIVE&quot; GivenName=&quot;USAAA0104&quot; FamilyName=&quot;SWM&quot; Gender=&quot;W&quot;      Organisation=&quot;USA&quot; BirthDate=&quot;1993-09-20&quot; Height=&quot;173&quot; Weight=&quot;63&quot;                  MainFunctionId=&quot;AA01&quot; ModificationIndicator=&quot;N&quot;&gt;       &lt;Discipline Code=&quot;SWM-------------------------------&quot;&gt;         &lt;!--报项--&gt;         &lt;RegisteredEvent Event=&quot;SWMW100MBR------------------------&quot;&gt;         &lt;/RegisteredEvent&gt;       &lt;/Discipline&gt;     &lt;/Participant&gt;   &lt;/Competition&gt; &lt;/OdfBody&gt;</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+          <stringProp name="HTTPSampler.path">/dc/odf/msg/SWM_OVR/ODFClient</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PARTIC_TEAMS" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="msg" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                <stringProp name="Argument.name">msg</stringProp>
+                <stringProp name="Argument.value">&lt;!--团队参赛信息--&gt; &lt;OdfBody CompetitionCode=&quot;JINJIANG2020&quot;          DocumentCode=&quot;SWM-------------------------------&quot;          DocumentType=&quot;DT_PARTIC_TEAMS&quot;          Version=&quot;1&quot;          FeedFlag=&quot;P&quot;          Date=&quot;2020-05-12&quot;          Time=&quot;104823001&quot;          LogicalDate=&quot;2020-05-12&quot;          Source=&quot;SWM_OVR&quot;&gt;   &lt;Competition&gt;     &lt;!--队伍信息--&gt;     &lt;Team Code=&quot;SWMWTEAM_USA01&quot;           Organisation=&quot;USA&quot;           Number=&quot;1&quot;           Name=&quot;游泳美国队01&quot;           TVTeamName=&quot;test01&quot;           Gender=&quot;W&quot;           ModificationIndicator=&quot;N&quot;&gt; 		 &lt;Composition&gt; 			&lt;!--运动员信息--&gt; 			&lt;Athlete Code=&quot;USAAA0101&quot; Order=&quot;1&quot;/&gt; 			&lt;Athlete Code=&quot;USAAA0102&quot; Order=&quot;2&quot;/&gt; 			&lt;Athlete Code=&quot;USAAA0103&quot; Order=&quot;3&quot;/&gt; 			&lt;Athlete Code=&quot;USAAA0104&quot; Order=&quot;4&quot;/&gt; 		&lt;/Composition&gt; 		&lt;Discipline Code=&quot;SWM-------------------------------&quot;&gt; 			&lt;RegisteredEvent Event=&quot;SWMW4X100MMD----------------------&quot;&gt; 			&lt;/RegisteredEvent&gt; 		&lt;/Discipline&gt; 	&lt;/Team&gt; 	 	&lt;Team Code=&quot;SWMWTEAM_CHN01&quot;           Organisation=&quot;CHN&quot;           Number=&quot;2&quot;           Name=&quot;游泳中国队01&quot;           TVTeamName=&quot;test01&quot;           Gender=&quot;W&quot;           ModificationIndicator=&quot;N&quot;&gt; 		 &lt;Composition&gt; 			&lt;!--运动员信息--&gt; 			&lt;Athlete Code=&quot;CHNAA0101&quot; Order=&quot;1&quot;/&gt; 			&lt;Athlete Code=&quot;CHNAA0102&quot; Order=&quot;2&quot;/&gt; 			&lt;Athlete Code=&quot;CHNAA0103&quot; Order=&quot;3&quot;/&gt; 			&lt;Athlete Code=&quot;CHNAA0104&quot; Order=&quot;4&quot;/&gt; 		&lt;/Composition&gt; 		&lt;Discipline Code=&quot;SWM-------------------------------&quot;&gt; 			&lt;RegisteredEvent Event=&quot;SWMW4X100MMD----------------------&quot;&gt; 			&lt;/RegisteredEvent&gt; 		&lt;/Discipline&gt; 	&lt;/Team&gt;   &lt;/Competition&gt; &lt;/OdfBody&gt;</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+          <stringProp name="HTTPSampler.path">/dc/odf/msg/SWM_OVR/ODFClient</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="SCHEDULE" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="msg" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                <stringProp name="Argument.name">msg</stringProp>
+                <stringProp name="Argument.value">&lt;!--赛程编排--&gt; &lt;OdfBody CompetitionCode=&quot;JINJIANG2020&quot; DocumentCode=&quot;SWM-------------------------------&quot; DocumentType=&quot;DT_SCHEDULE&quot; ResultStatus=&quot;OFFICIAL&quot; Version=&quot;1&quot; FeedFlag=&quot;P&quot; Date=&quot;2020-04-23&quot; Time=&quot;15:42:23&quot; LogicalDate=&quot;2020-04-23&quot; Source=&quot;SWM_OVR&quot;&gt; 	&lt;Competition&gt; 		&lt;Unit Code=&quot;SWMW4X100MMD----------------------&quot; PhaseType=&quot;3&quot; ScheduleStatus=&quot;SCHEDULED&quot; StartDate=&quot;2020-04-24T08:00:00&quot; EndDate=&quot;2020-04-24T12:30:00&quot; Order=&quot;1&quot; Medal=&quot;0&quot; Venue=&quot;ZHIXIAO&quot; Location=&quot;ZHIXIAO&quot; SessionCode=&quot;PT01&quot; ModificationIndicator=&quot;N&quot;&gt; 			&lt;VenueDescription VenueName=&quot;晋江职校体育馆&quot; LocationName=&quot;职校&quot;/&gt;         &lt;/Unit&gt; 		 		&lt;Unit Code=&quot;SWMW4X100MMD----------HEAT--------&quot; PhaseType=&quot;3&quot; ScheduleStatus=&quot;SCHEDULED&quot; StartDate=&quot;2020-04-24T08:00:00&quot; EndDate=&quot;2020-04-24T12:30:00&quot; Order=&quot;1&quot; Medal=&quot;0&quot; Venue=&quot;ZHIXIAO&quot; Location=&quot;ZHIXIAO&quot; SessionCode=&quot;PT01&quot; ModificationIndicator=&quot;N&quot;&gt; 			&lt;VenueDescription VenueName=&quot;晋江职校体育馆&quot; LocationName=&quot;职校&quot;/&gt;         &lt;/Unit&gt; 		         &lt;Unit Code=&quot;SWMW4X100MMD----------HEAT000100--&quot; PhaseType=&quot;3&quot; ScheduleStatus=&quot;SCHEDULED&quot; StartDate=&quot;2020-04-24T08:00:00&quot; EndDate=&quot;2020-04-24T12:30:00&quot; Order=&quot;1&quot; Medal=&quot;0&quot; Venue=&quot;ZHIXIAO&quot; Location=&quot;ZHIXIAO&quot; SessionCode=&quot;PT01&quot; ModificationIndicator=&quot;N&quot;&gt; 			&lt;VenueDescription VenueName=&quot;晋江职校体育馆&quot; LocationName=&quot;职校&quot;/&gt;         &lt;/Unit&gt; 		&lt;Unit Code=&quot;SWMW4X100MMD----------HEAT000200--&quot; PhaseType=&quot;3&quot; ScheduleStatus=&quot;SCHEDULED&quot; StartDate=&quot;2020-04-24T08:00:00&quot; EndDate=&quot;2020-04-24T12:30:00&quot; Order=&quot;2&quot; Medal=&quot;0&quot; Venue=&quot;ZHIXIAO&quot; Location=&quot;ZHIXIAO&quot; SessionCode=&quot;PT01&quot; ModificationIndicator=&quot;N&quot;&gt; 			&lt;VenueDescription VenueName=&quot;晋江职校体育馆&quot; LocationName=&quot;职校&quot;/&gt;         &lt;/Unit&gt; 		&lt;Unit Code=&quot;SWMW4X100MMD----------HEAT000300--&quot; PhaseType=&quot;3&quot; ScheduleStatus=&quot;SCHEDULED&quot; StartDate=&quot;2020-04-24T08:00:00&quot; EndDate=&quot;2020-04-24T12:30:00&quot; Order=&quot;3&quot; Medal=&quot;0&quot; Venue=&quot;ZHIXIAO&quot; Location=&quot;ZHIXIAO&quot; SessionCode=&quot;PT01&quot; ModificationIndicator=&quot;N&quot;&gt; 			&lt;VenueDescription VenueName=&quot;晋江职校体育馆&quot; LocationName=&quot;职校&quot;/&gt;         &lt;/Unit&gt; 		&lt;Unit Code=&quot;SWMW4X100MMD----------HEAT000400--&quot; PhaseType=&quot;3&quot; ScheduleStatus=&quot;SCHEDULED&quot; StartDate=&quot;2020-04-24T08:00:00&quot; EndDate=&quot;2020-04-24T12:30:00&quot; Order=&quot;4&quot; Medal=&quot;0&quot; Venue=&quot;ZHIXIAO&quot; Location=&quot;ZHIXIAO&quot; SessionCode=&quot;PT01&quot; ModificationIndicator=&quot;N&quot;&gt; 			&lt;VenueDescription VenueName=&quot;晋江职校体育馆&quot; LocationName=&quot;职校&quot;/&gt;         &lt;/Unit&gt; 	&lt;/Competition&gt; &lt;/OdfBody&gt;</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+          <stringProp name="HTTPSampler.path">/dc/odf/msg/SWM_OVR/ODFClient</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="SCHEDULE_UPDATE" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="msg" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                <stringProp name="Argument.name">msg</stringProp>
+                <stringProp name="Argument.value">&lt;!--RESULT赛程更新--&gt; &lt;OdfBody CompetitionCode=&quot;JINJIANG2020&quot; DocumentCode=&quot;SWM-------------------------------&quot; DocumentType=&quot;DT_SCHEDULE_UPDATE&quot; ResultStatus=&quot;OFFICIAL&quot; Version=&quot;1&quot; FeedFlag=&quot;P&quot; Date=&quot;2020-04-23&quot; Time=&quot;15:42:23&quot; LogicalDate=&quot;2020-04-23&quot; Source=&quot;SWM_OVR&quot;&gt; 	&lt;Competition&gt;         &lt;Unit Code=&quot;SWMW4X100MMD----------HEAT000100--&quot; PhaseType=&quot;3&quot; ScheduleStatus=&quot;FINISHED&quot; StartDate=&quot;2020-04-24T08:00:00&quot; EndDate=&quot;2020-04-24T12:30:00&quot; ActualStartDate=&quot;2020-04-24T09:00:00&quot; ActualEndDate=&quot;2020-04-24T12:30:00&quot; Order=&quot;1&quot; Medal=&quot;0&quot; Venue=&quot;ZHIXIAO&quot; Location=&quot;ZHIXIAO&quot; SessionCode=&quot;PT01&quot; ModificationIndicator=&quot;N&quot;&gt; 			&lt;VenueDescription VenueName=&quot;晋江职校体育馆&quot; LocationName=&quot;职校&quot;/&gt;         &lt;/Unit&gt; 	&lt;/Competition&gt; &lt;/OdfBody&gt;</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+          <stringProp name="HTTPSampler.path">/dc/odf/msg/SWM_OVR/ODFClient</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="RESULT" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="msg" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                <stringProp name="Argument.name">msg</stringProp>
+                <stringProp name="Argument.value">&lt;!--团队成绩录入--&gt; &lt;OdfBody CompetitionCode=&quot;JINJIANG2020&quot; DocumentCode=&quot;SWMW4X100MMD----------HEAT000100--&quot; DocumentType=&quot;DT_RESULT&quot; Version=&quot;1&quot; ResultStatus=&quot;OFFICIAL&quot; FeedFlag=&quot;T&quot; Date=&quot;2020-04-17&quot; Time=&quot;10:48:23&quot; LogicalDate=&quot;2020-04-17&quot; Source=&quot;SWM_OVR&quot;&gt;   &lt;Competition&gt;     &lt;ExtendedInfos&gt;       &lt;UnitDateTime StartDate=&quot;2020-04-24T09:00:00&quot; /&gt;       &lt;SportDescription DisciplineName=&quot;Swimming&quot; EventName=&quot;女子4x100米混合泳接力&quot; Gender=&quot;W&quot; SubEventName=&quot;预赛&quot; /&gt;       &lt;VenueDescription Venue=&quot;ZHIXIAO&quot; VenueName=&quot;晋江职校体育馆&quot; Location=&quot;ZHIXIAO&quot; LocationName=&quot;职校&quot; /&gt;     &lt;/ExtendedInfos&gt;     &lt;Result Rank=&quot;1&quot; Result=&quot;00:30.41&quot; IRM=&quot;&quot; SortOrder=&quot;1&quot; StartOrder=&quot;1&quot; StartSortOrder=&quot;2&quot; ResultType=&quot;TIME&quot; Diff=&quot;+5.1&quot;&gt;       &lt;ExtendedResults&gt;         &lt;ExtendedResult Type=&quot;WR&quot; Code=&quot;REACT_TIME&quot; Pos=&quot;0&quot; Value=&quot;00:00.00&quot; /&gt;         &lt;ExtendedResult Type=&quot;PROGRESS&quot; Code=&quot;INTERMEDIATE&quot; Pos=&quot;1&quot; Value=&quot;00:04.03&quot; /&gt;       &lt;/ExtendedResults&gt; 	  &lt;RecordIndicators&gt;          &lt;RecordIndicator Order=&quot;1&quot; Code=&quot;SWMW4X100MMD----------------------&quot; RecordType=&quot;WR&quot;/&gt;       &lt;/RecordIndicators&gt;       &lt;Competitor Code=&quot;SWMWTEAM_CHN01&quot; Type=&quot;T&quot; Bib=&quot;&quot; Organisation=&quot;CHN&quot;&gt;         &lt;Description TeamName=&quot;游泳中国队01&quot; /&gt;         &lt;Composition&gt; 			&lt;Athlete Code=&quot;CHNAA0101&quot; Order=&quot;1&quot; StartOrder=&quot;1&quot; StartSortOrder=&quot;1&quot; Bib=&quot;C1&quot;&gt; 				&lt;Description GivenName=&quot;CHNAA0101&quot; FamilyName=&quot;SWM&quot; Gender=&quot;W&quot; Organisation=&quot;CHN&quot; /&gt; 			&lt;/Athlete&gt; 			&lt;Athlete Code=&quot;CHNAA0102&quot; Order=&quot;2&quot; StartOrder=&quot;2&quot; StartSortOrder=&quot;1&quot; Bib=&quot;C2&quot;&gt; 				&lt;Description GivenName=&quot;CHNAA0102&quot; FamilyName=&quot;SWM&quot; Gender=&quot;W&quot; Organisation=&quot;CHN&quot; /&gt; 			&lt;/Athlete&gt; 			&lt;Athlete Code=&quot;CHNAA0103&quot; Order=&quot;3&quot; StartOrder=&quot;3&quot; StartSortOrder=&quot;1&quot; Bib=&quot;C3&quot;&gt; 				&lt;Description GivenName=&quot;CHNAA0103&quot; FamilyName=&quot;SWM&quot; Gender=&quot;W&quot; Organisation=&quot;CHN&quot; /&gt; 			&lt;/Athlete&gt; 			&lt;Athlete Code=&quot;CHNAA0104&quot; Order=&quot;4&quot; StartOrder=&quot;4&quot; StartSortOrder=&quot;1&quot; Bib=&quot;C4&quot;&gt; 				&lt;Description GivenName=&quot;CHNAA0104&quot; FamilyName=&quot;SWM&quot; Gender=&quot;W&quot; Organisation=&quot;CHN&quot; /&gt; 			&lt;/Athlete&gt;         &lt;/Composition&gt;       &lt;/Competitor&gt;     &lt;/Result&gt; 	     &lt;Result Rank=&quot;2&quot; Result=&quot;00:31.82&quot; IRM=&quot;&quot; SortOrder=&quot;3&quot; StartOrder=&quot;2&quot; StartSortOrder=&quot;3&quot; ResultType=&quot;TIME&quot; Diff=&quot;+1.5&quot;&gt;       &lt;ExtendedResults&gt;         &lt;ExtendedResult Type=&quot;ER&quot; Code=&quot;REACT_TIME&quot; Pos=&quot;0&quot; Value=&quot;00:00.00&quot; /&gt;         &lt;ExtendedResult Type=&quot;PROGRESS&quot; Code=&quot;INTERMEDIATE&quot; Pos=&quot;1&quot; Value=&quot;00:07.89&quot; /&gt;       &lt;/ExtendedResults&gt;       &lt;Competitor Code=&quot;SWMWTEAM_USA01&quot; Type=&quot;T&quot; Bib=&quot;&quot; Organisation=&quot;USA&quot;&gt;         &lt;Description TeamName=&quot;游泳美国队01&quot; /&gt;         &lt;Composition&gt; 			&lt;Athlete Code=&quot;USAAA0101&quot; Order=&quot;1&quot; StartOrder=&quot;1&quot; StartSortOrder=&quot;1&quot; Bib=&quot;U1&quot;&gt; 				&lt;Description GivenName=&quot;USAAA0101&quot; FamilyName=&quot;SWM&quot; Gender=&quot;W&quot; Organisation=&quot;USA&quot; /&gt; 			&lt;/Athlete&gt; 			&lt;Athlete Code=&quot;USAAA0102&quot; Order=&quot;2&quot; StartOrder=&quot;2&quot; StartSortOrder=&quot;1&quot; Bib=&quot;U2&quot;&gt; 				&lt;Description GivenName=&quot;USAAA0102&quot; FamilyName=&quot;SWM&quot; Gender=&quot;W&quot; Organisation=&quot;USA&quot; /&gt; 			&lt;/Athlete&gt; 			&lt;Athlete Code=&quot;USAAA0103&quot; Order=&quot;3&quot; StartOrder=&quot;3&quot; StartSortOrder=&quot;1&quot; Bib=&quot;U3&quot;&gt; 				&lt;Description GivenName=&quot;USAAA0103&quot; FamilyName=&quot;SWM&quot; Gender=&quot;W&quot; Organisation=&quot;USA&quot; /&gt; 			&lt;/Athlete&gt; 			&lt;Athlete Code=&quot;USAAA0104&quot; Order=&quot;4&quot; StartOrder=&quot;4&quot; StartSortOrder=&quot;1&quot; Bib=&quot;U4&quot;&gt; 				&lt;Description GivenName=&quot;USAAA0104&quot; FamilyName=&quot;SWM&quot; Gender=&quot;W&quot; Organisation=&quot;USA&quot; /&gt; 			&lt;/Athlete&gt;         &lt;/Composition&gt;       &lt;/Competitor&gt;     &lt;/Result&gt;     &lt;/Competition&gt; &lt;/OdfBody&gt;</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+          <stringProp name="HTTPSampler.path">/dc/odf/msg/SWM_OVR/ODFClient</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="SCHEDULE_UPDATE_PHASE" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="msg" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                <stringProp name="Argument.name">msg</stringProp>
+                <stringProp name="Argument.value">&lt;!--PHASE赛程更新--&gt; &lt;OdfBody CompetitionCode=&quot;JINJIANG2020&quot; DocumentCode=&quot;SWM-------------------------------&quot; DocumentType=&quot;DT_SCHEDULE_UPDATE&quot; ResultStatus=&quot;OFFICIAL&quot; Version=&quot;1&quot; FeedFlag=&quot;P&quot; Date=&quot;2020-04-23&quot; Time=&quot;15:42:23&quot; LogicalDate=&quot;2020-04-23&quot; Source=&quot;SWM_OVR&quot;&gt; 	&lt;Competition&gt; 		&lt;Unit Code=&quot;SWMW4X100MMD----------HEAT--------&quot; PhaseType=&quot;3&quot; ScheduleStatus=&quot;FINISHED&quot; StartDate=&quot;2020-04-24T08:00:00&quot; EndDate=&quot;2020-04-24T12:30:00&quot; ActualStartDate=&quot;2020-04-24T08:00:00&quot; ActualEndDate=&quot;2020-04-24T12:30:00&quot; Order=&quot;1&quot; Medal=&quot;0&quot; Venue=&quot;ZHIXIAO&quot; Location=&quot;ZHIXIAO&quot; SessionCode=&quot;PT01&quot; ModificationIndicator=&quot;N&quot;&gt; 			&lt;VenueDescription VenueName=&quot;晋江职校体育馆&quot; LocationName=&quot;职校&quot;/&gt;         &lt;/Unit&gt; 	&lt;/Competition&gt; &lt;/OdfBody&gt;</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+          <stringProp name="HTTPSampler.path">/dc/odf/msg/SWM_OVR/ODFClient</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PHASE_RESULT" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="msg" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                <stringProp name="Argument.name">msg</stringProp>
+                <stringProp name="Argument.value">&lt;!--阶段成绩录入--&gt; &lt;OdfBody CompetitionCode=&quot;JINJIANG2020&quot; DocumentCode=&quot;SWMW4X100MMD----------HEAT--------&quot; DocumentType=&quot;DT_PHASE_RESULT&quot; Version=&quot;1&quot; ResultStatus=&quot;UNOFFICIAL&quot; FeedFlag=&quot;T&quot; Date=&quot;2020-04-17&quot; Time=&quot;10:48:23&quot; LogicalDate=&quot;2020-04-17&quot; Source=&quot;SWM_OVR&quot;&gt;   &lt;Competition&gt;     &lt;ExtendedInfos&gt;       &lt;UnitDateTime StartDate=&quot;2020-04-24T09:00:00&quot; /&gt;       &lt;SportDescription DisciplineName=&quot;Swimming&quot; EventName=&quot;女子4x100米混合泳接力&quot; Gender=&quot;W&quot; SubEventName=&quot;预赛&quot; /&gt;       &lt;VenueDescription Venue=&quot;ZHIXIAO&quot; VenueName=&quot;晋江职校体育馆&quot; Location=&quot;ZHIXIAO&quot; LocationName=&quot;职校&quot; /&gt;     &lt;/ExtendedInfos&gt;     &lt;Result Rank=&quot;1&quot; Result=&quot;18&quot; IRM=&quot;&quot; SortOrder=&quot;1&quot; StartOrder=&quot;1&quot; StartSortOrder=&quot;1&quot; ResultType=&quot;TIME&quot; Diff=&quot;+5.1&quot;&gt;       &lt;ExtendedResults&gt;         &lt;ExtendedResult Type=&quot;WR&quot; Code=&quot;REACT_TIME&quot; Pos=&quot;0&quot; Value=&quot;00:00.00&quot; /&gt;         &lt;ExtendedResult Type=&quot;PROGRESS&quot; Code=&quot;INTERMEDIATE&quot; Pos=&quot;1&quot; Value=&quot;00:04.03&quot; /&gt;       &lt;/ExtendedResults&gt;       &lt;Competitor Code=&quot;SWMWTEAM_CHN01&quot; Type=&quot;T&quot; Bib=&quot;&quot; Organisation=&quot;CHN&quot;&gt;         &lt;Description TeamName=&quot;游泳中国队01&quot; /&gt;         &lt;Composition&gt; 			&lt;Athlete Code=&quot;CHNAA0101&quot; Order=&quot;1&quot;/&gt; 			&lt;Athlete Code=&quot;CHNAA0102&quot; Order=&quot;2&quot;/&gt; 			&lt;Athlete Code=&quot;CHNAA0103&quot; Order=&quot;3&quot;/&gt; 			&lt;Athlete Code=&quot;CHNAA0104&quot; Order=&quot;4&quot;/&gt;         &lt;/Composition&gt;       &lt;/Competitor&gt;     &lt;/Result&gt;     &lt;Result Rank=&quot;2&quot; Result=&quot;16&quot; IRM=&quot;&quot; SortOrder=&quot;3&quot; StartOrder=&quot;3&quot; StartSortOrder=&quot;3&quot; ResultType=&quot;TIME&quot; Diff=&quot;+1.5&quot;&gt;       &lt;ExtendedResults&gt;         &lt;ExtendedResult Type=&quot;ER&quot; Code=&quot;REACT_TIME&quot; Pos=&quot;0&quot; Value=&quot;00:00.00&quot; /&gt;         &lt;ExtendedResult Type=&quot;PROGRESS&quot; Code=&quot;INTERMEDIATE&quot; Pos=&quot;1&quot; Value=&quot;00:07.89&quot; /&gt;       &lt;/ExtendedResults&gt;       &lt;Competitor Code=&quot;SWMWTEAM_USA01&quot; Type=&quot;T&quot; Bib=&quot;&quot; Organisation=&quot;USA&quot;&gt;         &lt;Description TeamName=&quot;游泳美国队01&quot; /&gt;         &lt;Composition&gt; 			&lt;Athlete Code=&quot;USAAA0101&quot; Order=&quot;1&quot;/&gt; 			&lt;Athlete Code=&quot;USAAA0102&quot; Order=&quot;2&quot;/&gt; 			&lt;Athlete Code=&quot;USAAA0103&quot; Order=&quot;3&quot;/&gt; 			&lt;Athlete Code=&quot;USAAA0104&quot; Order=&quot;4&quot;/&gt;         &lt;/Composition&gt;       &lt;/Competitor&gt;     &lt;/Result&gt;     &lt;/Competition&gt; &lt;/OdfBody&gt;</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+          <stringProp name="HTTPSampler.path">/dc/odf/msg/SWM_OVR/ODFClient</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="SCHEDULE_UPDATE_RANKING" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="msg" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                <stringProp name="Argument.name">msg</stringProp>
+                <stringProp name="Argument.value">&lt;!--EVENT赛程更新--&gt; &lt;OdfBody CompetitionCode=&quot;JINJIANG2020&quot; DocumentCode=&quot;SWM-------------------------------&quot; DocumentType=&quot;DT_SCHEDULE_UPDATE&quot; ResultStatus=&quot;OFFICIAL&quot; Version=&quot;1&quot; FeedFlag=&quot;P&quot; Date=&quot;2020-04-23&quot; Time=&quot;15:42:23&quot; LogicalDate=&quot;2020-04-23&quot; Source=&quot;SWM_OVR&quot;&gt; 	&lt;Competition&gt; 		&lt;Unit Code=&quot;SWMW4X100MMD----------------------&quot; PhaseType=&quot;3&quot; ScheduleStatus=&quot;FINISHED&quot; StartDate=&quot;2020-04-24T08:00:00&quot; EndDate=&quot;2020-04-24T12:30:00&quot; ActualStartDate=&quot;2020-04-24T08:00:00&quot; ActualEndDate=&quot;2020-04-24T12:30:00&quot; Order=&quot;1&quot; Medal=&quot;0&quot; Venue=&quot;ZHIXIAO&quot; Location=&quot;ZHIXIAO&quot; SessionCode=&quot;PT01&quot; ModificationIndicator=&quot;N&quot;&gt; 			&lt;VenueDescription VenueName=&quot;晋江职校体育馆&quot; LocationName=&quot;职校&quot;/&gt;         &lt;/Unit&gt; 	&lt;/Competition&gt; &lt;/OdfBody&gt;</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+          <stringProp name="HTTPSampler.path">/dc/odf/msg/SWM_OVR/ODFClient</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="RANKING" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="msg" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                <stringProp name="Argument.name">msg</stringProp>
+                <stringProp name="Argument.value">&lt;!--名次公告--&gt; &lt;OdfBody CompetitionCode=&quot;JINJIANG2020&quot; DocumentCode=&quot;SWMW4X100MMD----------------------&quot; DocumentType=&quot;DT_RANKING&quot; Version=&quot;1&quot; ResultStatus=&quot;OFFICIAL&quot; FeedFlag=&quot;T&quot; Date=&quot;2020-04-17&quot; Time=&quot;10:48:23&quot; LogicalDate=&quot;2020-04-17&quot; Source=&quot;SWM_OVR&quot;&gt;   &lt;Competition&gt;     &lt;ExtendedInfos&gt;       &lt;UnitDateTime StartDate=&quot;2020-04-24T09:00:00&quot; /&gt;       &lt;SportDescription DisciplineName=&quot;Swimming&quot; EventName=&quot;女子4x100米混合泳接力&quot; Gender=&quot;W&quot; /&gt;       &lt;VenueDescription Venue=&quot;ZHIXIAO&quot; VenueName=&quot;晋江职校体育馆&quot; Location=&quot;ZHIXIAO&quot; LocationName=&quot;职校&quot; /&gt;     &lt;/ExtendedInfos&gt;     &lt;Result Rank=&quot;1&quot; Result=&quot;00:30.41&quot; IRM=&quot;&quot; SortOrder=&quot;1&quot; StartOrder=&quot;1&quot; StartSortOrder=&quot;2&quot; ResultType=&quot;TIME&quot; Diff=&quot;+5.1&quot;&gt;       &lt;ExtendedResults&gt;         &lt;ExtendedResult Type=&quot;WR&quot; Code=&quot;REACT_TIME&quot; Pos=&quot;0&quot; Value=&quot;00:00.00&quot; /&gt;         &lt;ExtendedResult Type=&quot;PROGRESS&quot; Code=&quot;INTERMEDIATE&quot; Pos=&quot;1&quot; Value=&quot;00:04.03&quot; /&gt;       &lt;/ExtendedResults&gt;       &lt;Competitor Code=&quot;SWMWTEAM_CHN01&quot; Type=&quot;T&quot; Bib=&quot;&quot; Organisation=&quot;CHN&quot;&gt;         &lt;Description TeamName=&quot;游泳中国队01&quot; /&gt;         &lt;Composition&gt; 			&lt;Athlete Code=&quot;CHNAA0101&quot; Order=&quot;1&quot;&gt; 				&lt;Description GivenName=&quot;CHNAA0101&quot; FamilyName=&quot;SWM&quot; Gender=&quot;W&quot; Organisation=&quot;CHN&quot; /&gt; 			&lt;/Athlete&gt; 			&lt;Athlete Code=&quot;CHNAA0102&quot; Order=&quot;2&quot;&gt; 				&lt;Description GivenName=&quot;CHNAA0102&quot; FamilyName=&quot;SWM&quot; Gender=&quot;W&quot; Organisation=&quot;CHN&quot; /&gt; 			&lt;/Athlete&gt; 			&lt;Athlete Code=&quot;CHNAA0103&quot; Order=&quot;3&quot;&gt; 				&lt;Description GivenName=&quot;CHNAA0103&quot; FamilyName=&quot;SWM&quot; Gender=&quot;W&quot; Organisation=&quot;CHN&quot; /&gt; 			&lt;/Athlete&gt; 			&lt;Athlete Code=&quot;CHNAA0104&quot; Order=&quot;4&quot;&gt; 				&lt;Description GivenName=&quot;CHNAA0104&quot; FamilyName=&quot;SWM&quot; Gender=&quot;W&quot; Organisation=&quot;CHN&quot; /&gt; 			&lt;/Athlete&gt;         &lt;/Composition&gt;       &lt;/Competitor&gt;     &lt;/Result&gt;     &lt;Result Rank=&quot;2&quot; Result=&quot;00:31.82&quot; IRM=&quot;&quot; SortOrder=&quot;3&quot; StartOrder=&quot;2&quot; StartSortOrder=&quot;3&quot; ResultType=&quot;TIME&quot; Diff=&quot;+1.5&quot;&gt;       &lt;ExtendedResults&gt;         &lt;ExtendedResult Type=&quot;ER&quot; Code=&quot;REACT_TIME&quot; Pos=&quot;0&quot; Value=&quot;00:00.00&quot; /&gt;         &lt;ExtendedResult Type=&quot;PROGRESS&quot; Code=&quot;INTERMEDIATE&quot; Pos=&quot;1&quot; Value=&quot;00:07.89&quot; /&gt;       &lt;/ExtendedResults&gt;       &lt;Competitor Code=&quot;SWMWTEAM_USA01&quot; Type=&quot;T&quot; Bib=&quot;&quot; Organisation=&quot;USA&quot;&gt;         &lt;Description TeamName=&quot;游泳美国队01&quot; /&gt;         &lt;Composition&gt; 			&lt;Athlete Code=&quot;USAAA0101&quot; Order=&quot;1&quot;&gt; 				&lt;Description GivenName=&quot;USAAA0101&quot; FamilyName=&quot;SWM&quot; Gender=&quot;W&quot; Organisation=&quot;USA&quot; /&gt; 			&lt;/Athlete&gt; 			&lt;Athlete Code=&quot;USAAA0102&quot; Order=&quot;2&quot;&gt; 				&lt;Description GivenName=&quot;USAAA0102&quot; FamilyName=&quot;SWM&quot; Gender=&quot;W&quot; Organisation=&quot;USA&quot; /&gt; 			&lt;/Athlete&gt; 			&lt;Athlete Code=&quot;USAAA0103&quot; Order=&quot;3&quot;&gt; 				&lt;Description GivenName=&quot;USAAA0103&quot; FamilyName=&quot;SWM&quot; Gender=&quot;W&quot; Organisation=&quot;USA&quot; /&gt; 			&lt;/Athlete&gt; 			&lt;Athlete Code=&quot;USAAA0104&quot; Order=&quot;4&quot;&gt; 				&lt;Description GivenName=&quot;USAAA0104&quot; FamilyName=&quot;SWM&quot; Gender=&quot;W&quot; Organisation=&quot;USA&quot; /&gt; 			&lt;/Athlete&gt;         &lt;/Composition&gt;       &lt;/Competitor&gt;     &lt;/Result&gt;     &lt;/Competition&gt; &lt;/OdfBody&gt;</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+          <stringProp name="HTTPSampler.path">/dc/odf/msg/SWM_OVR/ODFClient</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="96784904">error</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="察看结果树" enabled="false">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="用表格察看结果" enabled="false">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="聚合报告" enabled="false">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
